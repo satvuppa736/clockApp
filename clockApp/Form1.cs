@@ -1,4 +1,7 @@
-﻿using System;
+﻿///Satvir Uppal
+///June 21 2018
+///Clock App with an easy to use UI along with a hexidecimal clock and a stop watch function
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;

@@ -19,13 +19,12 @@ namespace clockApp
         {
             InitializeComponent();
             clockTimer.Start();
-            datelabel.Text = Convert.ToString(DateTime.Now.Day)
+            datelabel.Text = Convert.ToString(DateTime.Now.Day) //displays the current date
                 + "/" + Convert.ToString(DateTime.Now.Month)
                 + "/" + Convert.ToString(DateTime.Now.Year);
-            clockLabel.Text = "";
+            clockLabel.Text = "";                              //resets clock label when starting the app
 
             clockTimer.Tick += new EventHandler(this.clockTimer_Tick);
-
 
             XmlDocument doc = new XmlDocument();
             doc.Load("Settings.xml");
@@ -34,7 +33,7 @@ namespace clockApp
 
 
             if (doc.SelectSingleNode("settings/hourMode").InnerText == "false")
-                hourMode = false;
+                hourMode = true;
             else if (doc.SelectSingleNode("settings/hourMode").InnerText == "true")
                 hourMode = true;
 
@@ -51,28 +50,28 @@ namespace clockApp
 
             string time = "";
 
-            if (hourMode && hh == 12)
+            if (hourMode && hh == 12)                   // if time is equal to noon, do not subtract 12 hours but display PM
             {
                 amPmOutput.Text = "PM";
                 output24Hour.Text = "24 HOUR MODE: OFF";
             }
-            else if (hourMode && hh > 12)
+            else if (hourMode && hh > 12)               // subtract 12 if the time is over noon, display PM
             {
                 hh -= 12;
                 amPmOutput.Text = "PM";
                 output24Hour.Text = "24 HOUR MODE: OFF";
             }
-            else if (hourMode && hh <= 11)
+            else if (hourMode && hh <= 11)          //display AM if less than noon
             {
                 amPmOutput.Text = "AM";
                 output24Hour.Text = "24 HOUR MODE: OFF";
             }
-            else if (hourMode == false)
+            else if (hourMode == false)             //do not display anything if earlier than noon
             {
                 amPmOutput.Text = null;
                 output24Hour.Text = "24 HOUR MODE: ON";
             }
-            if (hh < 10)
+            if (hh < 10)                        //displays zeros before each instance of numbers as a place value for double digits
                 time += "0" + hh;
             else
                 time += hh;
@@ -101,13 +100,14 @@ namespace clockApp
                 ForeColor = Color.Magenta;
             else if (SettingsScreen.ColourTheme == "DEFAULT")
                 ForeColor = Color.White;
-            #endregion
+            #endregion //clock colour changes 
 
+            //centres the clock at all times
             Point labelLocation = new Point((this.Width / 2) - clockLabel.Width / 2, (this.Height / 2) - clockLabel.Height / 2);
-            clockLabel.Location = labelLocation;
+            clockLabel.Location = labelLocation; 
         }
 
-        private void backButton_Click(object sender, EventArgs e)
+        private void backButton_Click(object sender, EventArgs e)       //close this screen, stop timer, and open home screen
         {
             clockTimer.Stop();
 
@@ -118,7 +118,7 @@ namespace clockApp
             f.Controls.Add(hs);
         }
 
-        private void settingsButton_Click(object sender, EventArgs e)
+        private void settingsButton_Click(object sender, EventArgs e)   //close current screen, and open settings
         {
             Form f = this.FindForm();
             f.Controls.Remove(this);

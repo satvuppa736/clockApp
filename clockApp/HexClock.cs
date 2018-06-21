@@ -15,7 +15,7 @@ namespace clockApp
         int hh, mm, ss;
         string time = "";
 
-        private void backButton_Click(object sender, EventArgs e)
+        private void backButton_Click(object sender, EventArgs e) //close this scree, return to home screen
         {
             Form f = this.FindForm();
             f.Controls.Remove(this);
@@ -37,7 +37,7 @@ namespace clockApp
             mm = DateTime.Now.Minute;
             ss = DateTime.Now.Second;
 
-            time += "#";
+            time += "#";            //set the time 
             if (hh < 10)
                 time += "0" + hh;
             else
@@ -52,9 +52,10 @@ namespace clockApp
                 time += ss;
             hexLabel.Text = time;
 
-            Color colour = (Color)ColorTranslator.FromHtml(time);
+            Color colour = (Color)ColorTranslator.FromHtml(time);     //make the back colour with the time 
             BackColor = colour;
 
+            //centre the time label
             Point labelLocation = new Point((this.Width / 2) - hexLabel.Width / 2, (this.Height / 2) - hexLabel.Height / 2);
             hexLabel.Location = labelLocation;
         }

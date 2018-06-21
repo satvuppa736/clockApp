@@ -14,9 +14,6 @@ namespace clockApp
     public partial class SettingsScreen : UserControl
     {
         public static string ColourTheme = "DEFAULT";
-
-        XmlDocument doc = new System.Xml.XmlDocument();
-
         public SettingsScreen()
         {
             InitializeComponent();
@@ -90,8 +87,6 @@ namespace clockApp
 
             //Write the XML to file and close the writer 
             writer.Close();
-
-
         }
     }
 }

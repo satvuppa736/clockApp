@@ -16,7 +16,7 @@ namespace clockApp
         public static string ColourTheme = "DEFAULT";
 
         XmlDocument doc = new System.Xml.XmlDocument();
-        
+
         public SettingsScreen()
         {
             InitializeComponent();
@@ -75,7 +75,21 @@ namespace clockApp
             else if (offBtn.Checked)
                 ClockScreen.hourMode = true;
 
-            doc.Load("Resources/Settings.xml");
+            XmlWriter writer = XmlWriter.Create("Settings.xml");
+
+            //Write the root element 
+            writer.WriteStartElement("settings");
+
+            //Write sub-elements 
+            writer.WriteElementString("color", ColourTheme);
+            writer.WriteElementString("hourMode", Convert.ToString(ClockScreen.hourMode));
+
+
+            // end the element 
+            writer.WriteEndElement();
+
+            //Write the XML to file and close the writer 
+            writer.Close();
 
 
         }
